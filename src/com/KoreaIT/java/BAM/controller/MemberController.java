@@ -176,7 +176,7 @@ public class MemberController extends Controller{
 	}
 	
 	public void makeTestData() {
-		System.out.println("테스트를 위한 멤 데이터를 생성합니다.");
+		System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
 
 		members.add(new Member(1, Util.getNowDateStr(), "user1", "pw1", "홍길동"));
 		members.add(new Member(2, Util.getNowDateStr(), "user2", "pw2", "이순신"));
