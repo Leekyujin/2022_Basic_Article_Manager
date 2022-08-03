@@ -34,14 +34,26 @@ public class MemberController extends Controller{
 		case "profile":
 			showProfile();
 			break;
+		case "logout":
+			doLogout();
+			break;
 		default:
 			System.out.println("존재하지 않는 명령어입니다.");
 			break;
 		}
 	}
 	
-	private void showProfile() {
+	private void doLogout() {
+		if (isLogined() == false) {
+			System.out.println("로그인 상태가 아닙니다.");
+			return;
+		}
 
+		loginedMember = null;
+		System.out.println("로그아웃 되었습니다.");
+	}
+	
+	private void showProfile() {
 		System.out.println("== 현재 로그인 한 회원 정보 ==");
 
 		if (loginedMember == null) {
@@ -59,6 +71,10 @@ public class MemberController extends Controller{
 	}
 
 	private void doLogin() {
+		if(isLogined()) {
+			System.out.println("이미 로그인 상태 입니다.");
+			return;
+		}
 
 		System.out.println("== 로그인 ==");
 		System.out.printf("로그인 아이디 : ");
@@ -160,12 +176,16 @@ public class MemberController extends Controller{
 		return members.get(index);
 	}
 	
-	public void makeMemberTestData() {
+	private boolean isLogined() {
+		return loginedMember != null;
+	}
+	
+	public void makeTestData() {
 		System.out.println("테스트를 위한 멤 데이터를 생성합니다.");
 
-		members.add(new Member(1, Util.getNowDateStr(), "user1", "pw1", "user1"));
-		members.add(new Member(2, Util.getNowDateStr(), "user2", "pw2", "user2"));
-		members.add(new Member(3, Util.getNowDateStr(), "user3", "pw3", "user3"));
+		members.add(new Member(1, Util.getNowDateStr(), "user1", "pw1", "홍길동"));
+		members.add(new Member(2, Util.getNowDateStr(), "user2", "pw2", "이순신"));
+		members.add(new Member(3, Util.getNowDateStr(), "user3", "pw3", "임꺽정"));
 	}
 
 }
