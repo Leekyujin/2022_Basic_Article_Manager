@@ -45,7 +45,7 @@ public class App {
 
 			String[] cmdBits = cmd.split(" ");
 
-			if(cmdBits.length == 1) {
+			if (cmdBits.length == 1) {
 				System.out.println("명령어를 확인해주세요.");
 				continue;
 			}
@@ -64,8 +64,33 @@ public class App {
 				continue;
 			}
 
+			String actionName = controllerName + "/" + actionMethodName;
+
+			switch (actionName) {
+			case "article/write":
+			case "article/delete":
+			case "article/modify":
+			case "member/logout":
+			case "member/profile":
+				if (Controller.isLogined() == false) {
+					System.out.println("로그인 후 이용해주세요.");
+					continue;
+				}
+				break;
+			}
+
+			switch (actionName) {
+			case "member/login":
+			case "member/join":
+				if (Controller.isLogined()) {
+					System.out.println("로그아웃 후 이용해주세요.");
+					continue;
+				}
+				break;
+			}
+
 			controller.doAction(cmd, actionMethodName);
-			
+
 		}
 
 		System.out.println("==프로그램 끝==");
