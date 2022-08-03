@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.KoreaIT.java.BAM.controller.Controller;
 import com.KoreaIT.java.BAM.controller.ArticleController;
+import com.KoreaIT.java.BAM.controller.Controller;
 import com.KoreaIT.java.BAM.controller.MemberController;
 import com.KoreaIT.java.BAM.dto.Article;
 import com.KoreaIT.java.BAM.dto.Member;
-import com.KoreaIT.java.BAM.util.Util;
 
 public class App {
 	private List<Article> articles;
