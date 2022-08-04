@@ -1,12 +1,12 @@
 package com.KoreaIT.java.BAM.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.KoreaIT.java.BAM.Container.Container;
 import com.KoreaIT.java.BAM.dto.Article;
 import com.KoreaIT.java.BAM.dto.Member;
+import com.KoreaIT.java.BAM.service.ArticleService;
 import com.KoreaIT.java.BAM.util.Util;
 
 public class ArticleController extends Controller{
@@ -14,6 +14,7 @@ public class ArticleController extends Controller{
 	private List<Article> articles;
 	private String cmd;
 	private String actionMethodName;
+	private ArticleService articleService;
 
 	public void doAction(String cmd, String actionMethodName) {
 		this.cmd = cmd;
@@ -44,34 +45,19 @@ public class ArticleController extends Controller{
 	public ArticleController(Scanner sc) {
 		this.sc = sc;
 
-		articles = Container.articleDao.articles;
+		articleService = Container.articleService;
 	}
 
 	private void showList() {
-		if (articles.size() == 0) {
-			System.out.println("게시글이 없습니다.");
-			return;
-		}
-
 		String searchKeyword = cmd.substring("article list".length()).trim();
 
 		System.out.printf("검색어 : %s\n", searchKeyword);
+		
+		List<Article> forPrintArticles = Container.articleService.getForPrintArticles(searchKeyword);
 
-		List<Article> forPrintArticles = articles;
-
-		if (searchKeyword.length() > 0) {
-			forPrintArticles = new ArrayList<>();
-
-			for (Article article : articles) {
-				if (article.title.contains(searchKeyword)) {
-					forPrintArticles.add(article);
-				}
-			}
-
-			if (forPrintArticles.size() == 0) {
-				System.out.println("검색 결과가 없습니다.");
-				return;
-			}
+		if (forPrintArticles.size() == 0) {
+			System.out.println("게시물이 없습니다.");
+			return;
 		}
 
 		System.out.println("== 게시물 목록 ==");
