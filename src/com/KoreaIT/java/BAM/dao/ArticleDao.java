@@ -17,10 +17,6 @@ public class ArticleDao extends Dao {
 		lastId++;
 	}
 	
-	public List<Article> getArticles(){
-		return articles;
-	}
-	
 	public List<Article> getArticles(String searchKeyword) {
 		if (searchKeyword != null && searchKeyword.length() != 0) {
 
