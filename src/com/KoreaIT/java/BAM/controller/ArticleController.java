@@ -66,16 +66,7 @@ public class ArticleController extends Controller{
 		for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
 			Article article = forPrintArticles.get(i);
 
-			String writerName = null;
-
-			List<Member> members = memberService.getMembers();
-
-			for (Member member : members) {
-				if (article.memberId == member.id) {
-					writerName = member.name;
-					break;
-				}
-			}
+			String writerName = memberService.getMemberNameById(article.memberId);
 
 			System.out.printf("%3d   |    %4s    |   %5s   |  %4s   | %5d\n", article.id, article.title,
 					article.regDate, writerName, article.hit);
@@ -117,16 +108,7 @@ public class ArticleController extends Controller{
 			return;
 		}
 		
-		String writerName = null;
-
-		List<Member> members = memberService.getMembers();
-
-		for (Member member : members) {
-			if (foundArticle.memberId == member.id) {
-				writerName = member.name;
-				break;
-			}
-		}
+		String writerName = memberService.getMemberNameById(foundArticle.memberId);
 
 		foundArticle.increaseHit();
 
